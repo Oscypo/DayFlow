@@ -1,0 +1,2 @@
+naucz się cos o localstorage w js-ie
+zacznij login page

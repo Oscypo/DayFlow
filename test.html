@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <t-footer></t-footer>
+</body>
+<script>
+    class TFooter extends HTMLElement {
+        constructor() {
+            super();
+            this.innerHTML = `<footer>
+			<div class="minifooter">projekt ucznia ZSK</div>
+			<div class="minifooter" id="midfooter">Michał Wietrzyński 2d</div>
+			<div class="minifooter">Kontakt: <a href="mailto:abcd@gmail.com">example@gmail.com</a></div>
+		</footer>`;
+        }
+    }
+    customElements.define("t-footer", TFooter);
+</script>
+
+</html>
