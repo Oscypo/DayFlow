@@ -44,8 +44,10 @@ fetch("https://api.allorigins.win/raw?url=https://zenquotes.io/api/random")
 		console.log(data);
 		let quote = data[0].q;
 		let author = data[0].a;
-		apiQuote.textContent = quote;
-		apiAuthor.textContent = "~ " + author;
+		if (apiQuote && apiAuthor) {
+			apiQuote.innerText = quote;
+			apiAuthor.innerText = "~ " + author;
+		}
 	})
 	.catch((error) => console.error("Błąd:", error));
 
@@ -177,6 +179,19 @@ document.addEventListener("DOMContentLoaded", () => {
 	const savedTheme = localStorage.getItem("theme");
 	if (savedTheme) {
 		document.documentElement.setAttribute("data-theme", savedTheme);
+	}
+
+	//wiadomosc po skontaktowaniu sie
+	if (document.querySelector("[class*=formK]")) {
+		document.querySelector("[class*=formK]").addEventListener("submit", (e) => {
+			e.preventDefault(); // zatrzymuje domyślne wysyłanie formularza
+			console.log("wiadomość została wysłana");
+			notification(
+				"var(--secondary)",
+				"var(--text)",
+				"wiadomość została wysłana"
+			);
+		});
 	}
 
 	let DisplayDifference = (date) => {
@@ -361,7 +376,9 @@ document.addEventListener("DOMContentLoaded", () => {
 		taskForm.style.backgroundColor = "var(--secondary)";
 		taskForm.style.borderRadius = "var(--default-angle)";
 		// Adding everything to the task
-		container.appendChild(newTask);
+		if (container) {
+			container.appendChild(newTask);
+		}
 		newTask.appendChild(taskForm);
 		taskForm.appendChild(taskInput);
 		taskForm.appendChild(taskDate);
@@ -385,8 +402,6 @@ document.addEventListener("DOMContentLoaded", () => {
 				}
 			}
 		});
-	} else {
-		console.error("Container with class 'todaysTasks' not found.");
 	}
 
 	let createExistingTasks = (userTasks) => {
@@ -499,8 +514,10 @@ document.addEventListener("DOMContentLoaded", () => {
 	JSON.parse(
 		localStorage.getItem(localStorage.getItem("currently_logged_as") + "Tasks")
 	).tasksArray.forEach((task) => {
-		console.log(task.date);
-		showTask(task, days[task.date.slice(-2) - 1]);
+		if (task.date.substring(0, 4) == getFormattedDate().substring(0, 4)) {
+			console.log(task.date);
+			showTask(task, days[task.date.slice(-2) - 1]);
+		}
 	});
 	document.querySelectorAll(".day .task").forEach((el) => {
 		el.classList.add("calendarTask");
@@ -518,7 +535,9 @@ document.getElementById("theme-toggle").addEventListener("click", () => {
 var current_image_index = 0;
 function image_swap() {
 	current_image_index = (current_image_index + 1) % images.length;
-	picture_gallery.style.backgroundImage = images[current_image_index];
+	if (picture_gallery) {
+		picture_gallery.style.backgroundImage = images[current_image_index];
+	}
 }
 setInterval(image_swap, 8000);
 picture_gallery = document.getElementById("picture_gallery");
@@ -531,12 +550,16 @@ var images = [
 //login
 var change_button = document.getElementById("fix");
 var change_button_2 = document.getElementById("fix1");
-change_button.addEventListener("click", () => {
-	toggleForms();
-});
-change_button_2.addEventListener("click", () => {
-	toggleForms();
-});
+if (change_button) {
+	change_button.addEventListener("click", () => {
+		toggleForms();
+	});
+}
+if (change_button_2) {
+	change_button_2.addEventListener("click", () => {
+		toggleForms();
+	});
+}
 toggleForms = () => {
 	var login_box = document.getElementById("login-box");
 	var register_box = document.getElementById("register-box");
@@ -557,65 +580,62 @@ register_form = document.getElementById("register-form");
 login_form = document.getElementById("login-form");
 
 // Handle registration form submission
-register_form.addEventListener("submit", (event) => {
-	event.preventDefault();
-	register_counter += 1;
-	let email = document.getElementById("usernames1").value;
-	let password = document.getElementById("password1").value;
-
-	// Save register data
-	localStorage.setItem(
-		"register_data" + register_counter,
-		email + " " + password
-	);
-	localStorage.setItem("register_counter", register_counter); // Save updated counter
-
-	console.log("User registered successfully");
-	PushToAll();
-	console.log("po zpushjowaniu   " + all_register_data);
-	// Clear input fields
-	document.getElementById("usernames1").value = "";
-	document.getElementById("password1").value = "";
-});
+if (register_form) {
+	register_form.addEventListener("submit", (event) => {
+		event.preventDefault();
+		PushToAll();
+		let email = document.getElementById("usernames1").value;
+		let password = document.getElementById("password1").value;
+		let register_data = email + " " + password;
+		all_register_data.push(register_data);
+		localStorage.setItem("register_counter", register_counter + 1);
+		localStorage.setItem(`register_data${register_counter + 1}`, register_data);
+		register_form.reset();
+	});
+}
 
 // Retrieve all register data into an array
 var localstorage_register_counter = localStorage.getItem("register_counter");
 
 // Handle login form submission
-login_form.addEventListener("submit", (event) => {
-	event.preventDefault();
-	PushToAll();
-	let email = document.getElementById("usernames").value;
-	let password = document.getElementById("password").value;
-	let login_data = email + " " + password;
-	let found = false;
+if (login_form) {
+	login_form.addEventListener("submit", (event) => {
+		event.preventDefault();
+		PushToAll();
+		let email = document.getElementById("usernames").value;
+		let password = document.getElementById("password").value;
+		let login_data = email + " " + password;
+		let found = false;
 
-	for (let i = 0; i < all_register_data.length; i++) {
-		if (all_register_data[i] == login_data) {
-			console.log("Zalogowano pomyślnie");
-			localStorage.setItem("currently_logged_as", `register_data${i + 1}`);
-			login_form.reset();
-			found = true;
-			localStorage.setItem("logged_in", true);
-			localStorage.setItem("login_notification_showed", false);
-			localStorage.setItem("instructions_showed", false);
+		for (let i = 0; i < all_register_data.length; i++) {
+			if (all_register_data[i] == login_data) {
+				console.log("Zalogowano pomyślnie");
+				localStorage.setItem("currently_logged_as", `register_data${i + 1}`);
+				login_form.reset();
+				found = true;
+				localStorage.setItem("logged_in", true);
+				localStorage.setItem("login_notification_showed", false);
+				localStorage.setItem("instructions_showed", false);
 
-			window.location.href = "logged-in-index.html";
-			console.log("Zalogowano");
-			break;
+				window.location.href = "logged-in-index.html";
+				console.log("Zalogowano");
+				break;
+			}
 		}
-	}
 
-	if (!found) {
-		//for finding bugs
-		console.log("Nieprawidłowy login lub hasło" + "wpisales " + login_data);
-		console.log(all_register_data);
-	}
+		if (!found) {
+			notification(
+				"var(--secondary)",
+				"var(--text)",
+				"nieprawidłowy login lub hasło"
+			);
+		}
 
-	// Clear input fields
-	document.getElementById("usernames").value = "";
-	document.getElementById("password").value = "";
-});
+		// Clear input fields
+		document.getElementById("usernames").value = "";
+		document.getElementById("password").value = "";
+	});
+}
 
 //helpful temporary function for testing
 

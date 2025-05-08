@@ -63,6 +63,9 @@ body {
 	margin: 0;
 	background-color: var(--background);
 }
+textarea{
+	color: black
+}
 .finisherBody {
 	height: 1080px;
 }
