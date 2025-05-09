@@ -63,8 +63,8 @@ body {
 	margin: 0;
 	background-color: var(--background);
 }
-textarea{
-	color: black
+textarea {
+	color: black;
 }
 .finisherBody {
 	height: 1080px;
@@ -164,6 +164,14 @@ nav ul li {
 	align-items: center;
 	transition: all 1s ease;
 }
+.accessibility-settings li {
+	margin: 0.5vh;
+	height: 3vh;
+	font-size: .9em;
+	color: var(--accent);
+	display: block;
+}
+
 #expand {
 	display: flex;
 	align-items: center;

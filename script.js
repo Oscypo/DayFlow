@@ -87,6 +87,7 @@ var observer = new IntersectionObserver(function (entries) {
 // document.querySelectorAll("#list_body").forEach((e) => {
 // 	observer.observe(e);
 // });
+let accessibilitySettings = document.querySelector(".accessibility-settings");
 //nav code
 let sidebar_extend = () => {
 	if (!extended) {
@@ -96,6 +97,7 @@ let sidebar_extend = () => {
 			span.style.display = "inline";
 		});
 	} else {
+		accessibilitySettings.classList.remove("active");
 		document.getElementById("sidebar").style.flex = 0.5;
 		extended = false;
 		profile.style.flex = 1;
@@ -103,7 +105,9 @@ let sidebar_extend = () => {
 			span.style.display = "none";
 		});
 		profile_svg.style.display = "block";
-		logged_in_miniprofile.style.display = "none";
+		if (logged_in_miniprofile) {
+			logged_in_miniprofile.style.display = "none";
+		}
 	}
 };
 expand.addEventListener("click", () => {
@@ -134,6 +138,16 @@ profile.addEventListener("click", () => {
 	}
 	profile.style.flex = 6;
 });
+//accessibility settings
+let accessibility = document.querySelector("#sidebar li:nth-of-type(4)");
+accessibility.addEventListener("click", () => {
+	extended = false;
+	sidebar_extend();
+	accessibilitySettings.classList.toggle("active");
+});
+// class accessibilityOptions{
+// 	constructor()
+// }
 
 //FooterClass
 class TFooter extends HTMLElement {
