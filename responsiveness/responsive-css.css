@@ -1,0 +1,305 @@
+/* Responsive styles for DayFlow
+ * This file contains media queries to make the website responsive
+ * without modifying the original CSS code
+ */
+
+/* Base responsive settings that apply to all screens */
+@media screen {
+	/* Ensure the page has responsive behavior */
+	html,
+	body {
+		overflow-x: hidden;
+		width: 100%;
+		min-height: 100vh;
+	}
+
+	body {
+		height: auto !important; /* Override fixed height */
+	}
+
+	/* Make sure article content doesn't overflow */
+	article {
+		height: auto !important;
+		min-height: 90vh;
+	}
+
+	/* Ensure images scale properly */
+	img {
+		max-width: 100%;
+		height: auto;
+	}
+}
+
+/* Large screens (desktops) */
+@media screen and (max-width: 1200px) {
+	/* Adjust the introduction section */
+	.introduction {
+		flex-direction: column;
+		height: auto;
+	}
+
+	.to_login {
+		margin: 1vh;
+	}
+
+	/* Adjust API section */
+	.apiSector {
+		flex-direction: column;
+	}
+
+	.api,
+	.gif {
+		width: auto;
+		margin: 1vh;
+	}
+
+	/* Adjust about tasks grid */
+	.aboutTasks {
+		grid-template-columns: 1fr 1fr;
+		grid-template-rows: auto;
+	}
+
+	/* Adjust login/register box width */
+	#login-box,
+	#register-box {
+		width: 50vw;
+	}
+
+	.styled-input,
+	#submit-button-login,
+	#submitK,
+	#submit-button-login-1 {
+		width: 40vw;
+	}
+
+	#fix,
+	#fix1 {
+		width: 40vw;
+	}
+}
+
+/* Medium screens (tablets) */
+@media screen and (max-width: 992px) {
+	/* Adjust main layout */
+	main {
+		flex-direction: column;
+	}
+
+	/* Make nav horizontal at the top */
+	nav {
+		position: static;
+		flex-direction: row;
+		height: auto;
+		margin: 1vh;
+		flex: initial;
+		width: auto;
+		order: 1;
+	}
+
+	nav ul {
+		flex-direction: row;
+		justify-content: center;
+		flex-wrap: wrap;
+	}
+
+	nav ul li {
+		margin: 1vh;
+	}
+
+	/* #expand {
+		display: none;
+	} */
+
+	#profile {
+		border-radius: var(--default-angle);
+		margin: 1vh;
+	}
+
+	/* Change sidebar behavior */
+	#sidebar {
+		flex-direction: row;
+		height: auto;
+		overflow: auto;
+		order: 1;
+	}
+
+	/* Adjust article to be full width */
+	article {
+		flex: 1;
+		order: 2;
+	}
+
+	/* Adjust picture gallery */
+	.picture_gallery {
+		min-height: 25vh;
+	}
+
+	/* O nas page adjustments */
+	.onas {
+		grid-template-columns: 1fr;
+		grid-template-rows: auto;
+		margin: 5vh;
+	}
+
+	.about_us_3 {
+		grid-column: auto;
+	}
+
+	.about_us_2 {
+		grid-row: auto;
+	}
+
+	/* Adjust login/register box width */
+	#login-box,
+	#register-box {
+		width: 70vw;
+	}
+
+	.styled-input,
+	#submit-button-login,
+	#submitK,
+	#submit-button-login-1 {
+		width: 60vw;
+	}
+
+	#fix,
+	#fix1 {
+		width: 60vw;
+	}
+
+	/* Calendar adjustments */
+	.calendar {
+		grid-template-columns: repeat(3, 1fr);
+		grid-template-rows: auto;
+	}
+}
+
+/* Small screens (mobile) */
+@media screen and (max-width: 768px) {
+	/* Adjust header */
+	header {
+		flex-direction: column;
+	}
+
+	#theme-toggle {
+		margin: 1vh;
+		border-radius: var(--default-angle);
+		text-align: center;
+	}
+
+	.heading-container {
+		justify-content: center;
+	}
+
+	/* Make nav items more pronounced */
+	nav ul li {
+		width: 40%;
+		height: 10vh;
+	}
+
+	/* Adjust to-do list */
+	#list_body {
+		grid-template-columns: 1fr;
+		margin-top: 5vh;
+	}
+
+	.newTask {
+		width: 80vw;
+	}
+
+	/* Adjust picture gallery */
+	.picture_gallery {
+		min-height: 20vh;
+	}
+
+	/* Adjust login/register box width */
+	#login-box,
+	#register-box {
+		width: 90vw;
+		max-height: auto;
+		padding: 2vh 0;
+	}
+
+	.styled-input,
+	#submit-button-login,
+	#submitK,
+	#submit-button-login-1 {
+		width: 80vw;
+	}
+
+	#fix,
+	#fix1 {
+		width: 80vw;
+	}
+
+	/* Calendar adjustments */
+	.calendar {
+		grid-template-columns: 1fr;
+	}
+
+	.day {
+		min-height: 20vh;
+	}
+
+	/* Notification adjustments */
+	.notification {
+		width: 80%;
+	}
+
+	.instructionsDiv {
+		min-width: 80%;
+	}
+
+	.instructionsClose {
+		width: 40vw !important;
+	}
+
+	/* Footer adjustments */
+	footer {
+		flex-direction: column;
+		height: auto;
+		padding: 2vh 0;
+	}
+}
+
+/* Extra small screens (small mobile) */
+@media screen and (max-width: 480px) {
+	/* Smaller nav items */
+	nav ul li {
+		width: 80%;
+	}
+
+	/* Make sure expandable accessibility menu works */
+	.accessibility-settings {
+		position: absolute;
+		background-color: var(--second-background);
+		z-index: 10;
+		width: 80%;
+		margin-top: 45vh;
+		border-radius: var(--default-angle);
+	}
+
+	.accessibility-settings.active {
+		padding: 1vh;
+	}
+
+	/* Further compact the to-do list */
+	.newTask {
+		width: 90vw;
+		margin: 1vh 0;
+	}
+
+	/* Adjust the "add task" button position */
+	#add_task {
+		bottom: 2vh;
+		right: 2vh;
+		width: 12vw;
+	}
+
+	/* Further API adjustments */
+	.api p,
+	.authorBox {
+		font-size: 0.9em;
+		padding: 1vh;
+	}
+}

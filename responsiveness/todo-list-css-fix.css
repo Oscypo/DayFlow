@@ -1,0 +1,14 @@
+/* Small screens (mobile) */
+@media screen and (max-width: 768px) {
+	.newTask {
+		width: 80vw;
+	}
+}
+
+/* Extra small screens (small mobile) */
+@media screen and (max-width: 480px) {
+	.newTask {
+		width: 90vw;
+		margin: 1vh 0;
+	}
+}

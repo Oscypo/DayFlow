@@ -167,11 +167,11 @@ nav ul li {
 .accessibility-settings li {
 	margin: 0.5vh;
 	height: 3vh;
-	font-size: .9em;
+	font-size: 0.9em;
 	color: var(--accent);
 	display: block;
 }
-.accessibility-settings{
+.accessibility-settings {
 	height: auto;
 }
 
@@ -343,7 +343,7 @@ svg {
 	grid-template-rows: repeat(2, 1fr);
 }
 .todaysTasks .todaysTasksText {
-	grid-row: span 10000;
+	grid-row: span 1;
 }
 .normalA {
 	text-decoration: underline;
