@@ -30,7 +30,9 @@ if (window.location.pathname.includes("index.html")) {
 			document.getElementById("effectH3").innerText = "W";
 			typingEffect("itamy na DayFlow", "effectH3");
 			setTimeout(() => {
-				onas.style.opacity = "1";
+				if (onas) {
+					onas.style.opacity = "1";
+				}
 			}, 1500);
 		};
 	}
@@ -139,15 +141,49 @@ profile.addEventListener("click", () => {
 	profile.style.flex = 6;
 });
 //accessibility settings
-let accessibility = document.querySelector("#sidebar li:nth-of-type(4)");
-accessibility.addEventListener("click", () => {
-	extended = false;
-	sidebar_extend();
-	accessibilitySettings.classList.toggle("active");
+let accessibility = document.querySelector(".accessibility-button");
+if (accessibility) {
+	accessibility.addEventListener("click", () => {
+		extended = false;
+		sidebar_extend();
+		accessibilitySettings.classList.toggle("active");
+	});
+}
+let accessibilitySettingsList = document.querySelectorAll(
+	".accessibility-settings ol li"
+);
+function updateAccessibilitySettings() {
+	if (localStorage.getItem("greyscale") == "true") {
+		document.body.style.filter = "grayscale(100%)";
+	} else {
+		document.body.style.filter = "none";
+	}
+	document.body.style.fontSize = localStorage.getItem("fontsize") + "rem";
+}
+accessibilitySettingsList.forEach((e, i) => {
+	e.addEventListener("click", () => {
+		if (i == 0) {
+			if (localStorage.getItem("greyscale") == "true") {
+				localStorage.setItem("greyscale", false);
+			} else {
+				localStorage.setItem("greyscale", true);
+			}
+		}
+		if (i == 1) {
+			localStorage.setItem(
+				"fontsize",
+				parseFloat(localStorage.getItem("fontsize")) + 0.1
+			);
+		}
+		if (i == 2) {
+			localStorage.setItem(
+				"fontsize",
+				parseFloat(localStorage.getItem("fontsize")) - 0.1
+			);
+		}
+		updateAccessibilitySettings();
+	});
 });
-// class accessibilityOptions{
-// 	constructor()
-// }
 
 //FooterClass
 class TFooter extends HTMLElement {
@@ -187,6 +223,11 @@ let getFormattedDate = () => {
 	return year + "-" + monthFormat + "-" + dtFormat;
 };
 document.addEventListener("DOMContentLoaded", () => {
+	if (!localStorage.getItem("fontsize")) {
+		localStorage.setItem("fontsize", 1);
+	}
+	updateAccessibilitySettings();
+
 	const currentDate = getFormattedDate();
 	console.log("currentDate=" + currentDate);
 

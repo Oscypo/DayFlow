@@ -171,6 +171,9 @@ nav ul li {
 	color: var(--accent);
 	display: block;
 }
+.accessibility-settings{
+	height: auto;
+}
 
 #expand {
 	display: flex;
