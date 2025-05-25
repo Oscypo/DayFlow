@@ -86,9 +86,6 @@ var observer = new IntersectionObserver(function (entries) {
 	});
 });
 
-// document.querySelectorAll("#list_body").forEach((e) => {
-// 	observer.observe(e);
-// });
 let accessibilitySettings = document.querySelector(".accessibility-settings");
 //nav code
 let sidebar_extend = () => {
@@ -124,13 +121,13 @@ extendProfile = () => {
 	setTimeout(() => {
 		console.log("pressed profile as logged in");
 		profile_svg.style.display = "none";
-		logged_in_miniprofile.style.display = "block"; // This line will execute after 1s delay
+		logged_in_miniprofile.style.display = "block";
 		document.getElementById("profile_name").innerHTML = `<h2>${
 			localStorage
 				.getItem(localStorage.getItem("currently_logged_as"))
 				.split(" ")[0]
 		}</h2>`;
-	}, 1000); // 1000 milliseconds = 1 second
+	}, 1000);
 };
 profile.addEventListener("click", () => {
 	extended = false;
@@ -239,7 +236,7 @@ document.addEventListener("DOMContentLoaded", () => {
 	//wiadomosc po skontaktowaniu sie
 	if (document.querySelector("[class*=formK]")) {
 		document.querySelector("[class*=formK]").addEventListener("submit", (e) => {
-			e.preventDefault(); // zatrzymuje domyślne wysyłanie formularza
+			e.preventDefault();
 			console.log("wiadomość została wysłana");
 			notification(
 				"var(--secondary)",
@@ -356,7 +353,6 @@ document.addEventListener("DOMContentLoaded", () => {
 		taskDate.required = true;
 		taskDate.value = taskDateValue;
 
-		//adding everything to the task
 		listBody.appendChild(newTask);
 		newTask.appendChild(taskForm);
 		newTask.appendChild(taskDelete);
@@ -373,11 +369,11 @@ document.addEventListener("DOMContentLoaded", () => {
 				event.preventDefault();
 				console.log(taskDate.value);
 				taskDate.focus();
-			} else if (taskInput.value.length > 20) {
+			} else if (taskInput.value.length > 30) {
 				notification(
 					"var(--secondary)",
 					"var(--text)",
-					"tekst nie może zawierać więcej niż 10 znaków"
+					"tekst nie może zawierać więcej niż 30 znaków"
 				);
 				event.preventDefault();
 				taskInput.focus();
@@ -385,7 +381,7 @@ document.addEventListener("DOMContentLoaded", () => {
 				//tworzenie objektu
 				let taskObj = new Task(taskInput.value, taskDate.value);
 				tasksArray.push(taskObj);
-				console.log(taskObj); //temporary
+				console.log(taskObj);
 				console.log(tasksArray);
 				let userTasksObj = new userTasks(
 					localStorage.getItem("currently_logged_as"),
@@ -395,7 +391,7 @@ document.addEventListener("DOMContentLoaded", () => {
 					localStorage.getItem("currently_logged_as") + "Tasks",
 					JSON.stringify(userTasksObj)
 				);
-				console.log(userTasksObj); //temporary
+				console.log(userTasksObj);
 				console.log(JSON.parse(localStorage.getItem("register_data2Tasks")));
 
 				//wylaczenie edycji po utworzeniu
@@ -430,7 +426,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 		taskForm.style.backgroundColor = "var(--secondary)";
 		taskForm.style.borderRadius = "var(--default-angle)";
-		// Adding everything to the task
 		if (container) {
 			container.appendChild(newTask);
 		}
@@ -503,7 +498,6 @@ document.addEventListener("DOMContentLoaded", () => {
 				}
 			}
 
-			//adding everything to the task
 			if (listBody) {
 				listBody.appendChild(newTask);
 			}
@@ -531,7 +525,6 @@ document.addEventListener("DOMContentLoaded", () => {
 			createTask();
 		});
 	}
-	// createExistingTasks(JSON.parse(localStorage.getItem("register_data2Tasks")));
 	createExistingTasks(
 		JSON.parse(
 			localStorage.getItem(
@@ -569,7 +562,8 @@ document.addEventListener("DOMContentLoaded", () => {
 	JSON.parse(
 		localStorage.getItem(localStorage.getItem("currently_logged_as") + "Tasks")
 	).tasksArray.forEach((task) => {
-		if (task.date.substring(0, 4) == getFormattedDate().substring(0, 4)) {
+		//aby w kalendarzu nie wyswietlaly sie zadania z poprzednich miesiecy i lat
+		if (task.date.substring(0, 4) == getFormattedDate().substring(0, 4) && task.date.substring(5, 7) == getFormattedDate().substring(5, 7)) {
 			console.log(task.date);
 			showTask(task, days[task.date.slice(-2) - 1]);
 		}
@@ -628,13 +622,11 @@ toggleForms = () => {
 };
 
 //logowanie sie i localstorage system
-// Get the register counter from localStorage or initialize it
 var register_counter = parseInt(localStorage.getItem("register_counter")) || 0;
 
 register_form = document.getElementById("register-form");
 login_form = document.getElementById("login-form");
 
-// Handle registration form submission
 if (register_form) {
 	register_form.addEventListener("submit", (event) => {
 		event.preventDefault();
@@ -649,10 +641,8 @@ if (register_form) {
 	});
 }
 
-// Retrieve all register data into an array
 var localstorage_register_counter = localStorage.getItem("register_counter");
 
-// Handle login form submission
 if (login_form) {
 	login_form.addEventListener("submit", (event) => {
 		event.preventDefault();
@@ -686,14 +676,12 @@ if (login_form) {
 			);
 		}
 
-		// Clear input fields
 		document.getElementById("usernames").value = "";
 		document.getElementById("password").value = "";
 	});
 }
 
-//helpful temporary function for testing
-
+//funkcja do testowania z poziomu konsoli
 localreset = () => {
 	localStorage.clear();
 	console.log("All data cleared from local storage");
@@ -739,16 +727,3 @@ function instructions() {
 		localStorage.setItem("instructions_showed", true);
 	}
 }
-
-//temporary JSON for register 21 zsk
-// {
-// 	"user": "register_data21",
-// 	"tasksArray": [
-//   {"title": "syuhh", "date": "2025-01-04"},
-//   {"title": "rizz", "date": "2025-01-04"},
-//   {"title": "wdwdddd", "date": "2025-02-09"},
-//   {"title": "Overdue", "date": "2024-12-22"},
-//   {"title": "Yesterday", "date": "2025-01-04"},
-//   {"title": "Tomorrow", "date": "2025-01-06"}
-// 	]
-//   }
