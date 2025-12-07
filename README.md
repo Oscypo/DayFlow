@@ -13,45 +13,31 @@ DayFlow should be treated as a showcase/demo project only.
 ✨ Features
 
 📝 Task Manager – Add, delete, and manage daily tasks
-
-📅 Auto-sorting by date for better organization
-
+📅 Calendar - see and manage your tasks
+💻 Fully responsive layout
 🎨 Accessibility Options
-
-Adjustable font sizes
-
-High-contrast mode
-
-Grayscale mode
+- Adjustable font sizes
+- High-contrast mode
+- Grayscale mode
 
 💾 Local storage support
 
-Saves tasks locally in the browser
-
-Stores user account data locally (learning purpose only)
+- Saves tasks locally in the browser
+- Stores user account data locally (learning purpose only)
 
 📱 In progress: Responsive layout improvements
 
 🛠️ Technologies Used
-
 HTML5
-
 CSS3
-
 JavaScript (ES6+)
-
 localStorage API
-
 Git / GitHub
 
 ⚠️ Disclaimer
-
 This project uses localStorage for handling:
-
 user registration
-
 user login
-
 task storage
 
 Because localStorage stores data in plain text in the browser, it is not secure and should never be used for real authentication.
@@ -62,7 +48,6 @@ DayFlow’s login system exists only for educational purposes — to practice DO
 Clone the repository:
 
 git clone https://github.com/<your-username>/DayFlow.git
-
 
 Open index.html in your browser.
 No build steps or server required.
